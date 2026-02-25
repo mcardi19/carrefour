@@ -1,6 +1,7 @@
-// Navigation for Carrefour Services & Resources prototype
-
 document.addEventListener('DOMContentLoaded', function () {
+  // =============================================
+  // SECTION NAVIGATION
+  // =============================================
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('.content-section');
   const breadcrumbCurrent = document.getElementById('breadcrumb-current');
@@ -19,52 +20,75 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   function setActiveSection(sectionId) {
-    // Update nav links
     navLinks.forEach(function (link) {
-      const href = link.getAttribute('href');
-      if (href === '#' + sectionId) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
+      var href = link.getAttribute('href');
+      link.classList.toggle('active', href === '#' + sectionId);
     });
 
-    // Update content sections
     sections.forEach(function (section) {
-      if (section.id === sectionId) {
-        section.classList.add('active');
-      } else {
-        section.classList.remove('active');
-      }
+      section.classList.toggle('active', section.id === sectionId);
     });
 
-    // Update breadcrumb
     if (breadcrumbCurrent && sectionTitles[sectionId]) {
       breadcrumbCurrent.textContent = sectionTitles[sectionId];
     }
   }
 
-  // Handle nav link clicks
   navLinks.forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
-      const href = this.getAttribute('href');
-      const sectionId = href.replace('#', '');
+      var sectionId = this.getAttribute('href').replace('#', '');
       setActiveSection(sectionId);
       history.pushState({ section: sectionId }, '', '#' + sectionId);
     });
   });
 
-  // Handle hash on load
-  const hash = window.location.hash.replace('#', '');
+  var hash = window.location.hash.replace('#', '');
   if (hash && sectionTitles[hash]) {
     setActiveSection(hash);
   }
 
-  // Handle back/forward
   window.addEventListener('popstate', function (e) {
     if (e.state && e.state.section) {
       setActiveSection(e.state.section);
     }
+  });
+
+  // =============================================
+  // TABS
+  // =============================================
+  document.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var targetId = this.getAttribute('data-tab');
+      var group = this.closest('.tab-bar').getAttribute('data-tab-group');
+
+      this.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(function (b) {
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+
+      document.querySelectorAll('.tab-panel[data-tab-group="' + group + '"]').forEach(function (panel) {
+        panel.classList.toggle('active', panel.id === targetId);
+      });
+    });
+  });
+
+  // =============================================
+  // ACCORDIONS
+  // =============================================
+  document.querySelectorAll('.accordion-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = this.closest('.accordion-item');
+      var accordion = this.closest('.accordion');
+      var isOpen = item.classList.contains('open');
+
+      accordion.querySelectorAll('.accordion-item').forEach(function (i) {
+        i.classList.remove('open');
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+      }
+    });
   });
 });
