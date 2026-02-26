@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var sectionId = this.getAttribute('href').replace('#', '');
       setActiveSection(sectionId);
       history.pushState({ section: sectionId }, '', '#' + sectionId);
+      closeMobileMenu();
     });
   });
 
@@ -53,6 +54,38 @@ document.addEventListener('DOMContentLoaded', function () {
       setActiveSection(e.state.section);
     }
   });
+
+  // =============================================
+  // MOBILE MENU
+  // =============================================
+  var menuBtn = document.querySelector('.mobile-menu-btn');
+  var sidebar = document.querySelector('.sidebar');
+  var overlay = document.querySelector('.mobile-overlay');
+
+  function openMobileMenu() {
+    sidebar.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (menuBtn) {
+    menuBtn.addEventListener('click', openMobileMenu);
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', closeMobileMenu);
+  }
+
+  var closeBtn = document.querySelector('.mobile-close-btn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMobileMenu);
+  }
 
   // =============================================
   // TABS

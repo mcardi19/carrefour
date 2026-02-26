@@ -577,23 +577,32 @@ body {
   gap: 0;
   border-bottom: 2px solid var(--border);
   margin-bottom: 1.5rem;
-  overflow: visible;
 }
 
 .tab-btn {
+  position: relative;
   padding: 0.65rem 0;
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-muted);
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
   margin-right: 1.5rem;
   cursor: pointer;
   white-space: nowrap;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.15s;
   font-family: inherit;
+}
+
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: transparent;
+  transition: background 0.15s;
 }
 
 .tab-btn:hover {
@@ -602,8 +611,12 @@ body {
 
 .tab-btn.active {
   color: var(--primary);
-  border-bottom-color: var(--primary);
   font-weight: 600;
+  border-bottom: 2px solid var(--primary);
+}
+
+.tab-btn.active::after {
+  background: var(--primary);
 }
 
 .tab-panel {
@@ -874,4 +887,271 @@ body {
   color: var(--text-muted);
   margin: 0;
   line-height: 1.45;
+}
+
+/* =============================================
+   MOBILE RESPONSIVE
+   ============================================= */
+
+/* Mobile header — hidden on desktop */
+.mobile-header {
+  display: none;
+}
+
+.mobile-overlay {
+  display: none;
+}
+
+.mobile-close-btn {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  /* Mobile header bar */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 56px;
+    padding: 0 1rem;
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+
+  .mobile-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .mobile-menu-btn .material-symbols-sharp {
+    font-size: 28px;
+  }
+
+  .mobile-header-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Overlay */
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s, visibility 0.25s;
+  }
+
+  .mobile-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Layout */
+  .layout {
+    flex-direction: column;
+    padding-top: 56px;
+  }
+
+  /* Sidebar becomes a slide-out drawer */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1002;
+    width: 280px;
+    min-width: 280px;
+    height: 100vh;
+    padding: 1.5rem 0;
+    background: #fff;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .mobile-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin: 0 0.75rem 0.5rem auto;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .mobile-close-btn:hover {
+    background: #f0f0f0;
+    color: var(--text-dark);
+  }
+
+  .mobile-close-btn .material-symbols-sharp {
+    font-size: 24px;
+  }
+
+  /* Main content */
+  .main-content {
+    padding: 1.5rem 1rem 3rem !important;
+    width: 100%;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-heading {
+    font-size: 1.1rem;
+  }
+
+  /* Card grids — single column */
+  .card-grid-2,
+  .card-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Icon tiles — 2 columns on mobile */
+  .icon-tiles {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .icon-tile {
+    padding: 1rem 0.5rem;
+  }
+
+  .icon-tile .material-symbols-sharp {
+    font-size: 28px;
+  }
+
+  .icon-tile span:last-child {
+    font-size: 0.75rem;
+  }
+
+  /* Chips — wrap tightly */
+  .chip-group {
+    gap: 0.4rem;
+  }
+
+  .chip {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  /* Icon cards — single column */
+  .icon-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Compact card grid — 2 cols on mobile */
+  .compact-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  /* Tab bar — scrollable */
+  .tab-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-bottom: 1.25rem;
+  }
+
+  .tab-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    padding: 0.55rem 0;
+    margin-right: 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  /* Link grid — single column */
+  .link-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Link list — single column */
+  .link-list {
+    column-count: 1;
+  }
+
+  /* Contact grid — single column */
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Featured block — stack on small screens */
+  .featured-block {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Alert card */
+  .alert-card {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Quick links container */
+  .quick-links-container {
+    padding: 1rem;
+  }
+
+  /* Cards — reduce padding */
+  .card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .icon-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .compact-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .icon-card-banner {
+    width: 60px;
+    min-height: 60px;
+  }
+
+  .icon-card-banner .material-symbols-sharp {
+    font-size: 28px;
+  }
 }

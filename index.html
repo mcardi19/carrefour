@@ -11,9 +11,21 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Mobile Header -->
+  <header class="mobile-header">
+    <button class="mobile-menu-btn" aria-label="Open menu">
+      <span class="material-symbols-sharp">menu</span>
+    </button>
+    <span class="mobile-header-title">Carrefour</span>
+  </header>
+  <div class="mobile-overlay"></div>
+
   <div class="layout">
     <!-- Left Navigation -->
     <nav class="sidebar">
+      <button class="mobile-close-btn" aria-label="Close menu">
+        <span class="material-symbols-sharp">close</span>
+      </button>
       <ul class="nav-list">
         <li><a href="#cu-essentials" class="nav-link active">
           <span class="material-symbols-sharp">home</span>
