@@ -161,9 +161,63 @@ body {
   color: var(--text-dark);
   margin: 0 0 1.25rem;
 }
+.section-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: -0.75rem 0 1.25rem;
+}
+.simple-link-list-2col {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  columns: 2;
+  column-gap: 1.5rem;
+}
+.simple-link-list-2col li {
+  padding: 0.2rem 0;
+}
+.simple-link-list-2col a {
+  color: var(--primary);
+  text-decoration: underline;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.link-columns-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.link-column-heading {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0 0 0.5rem;
+}
+.simple-link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.simple-link-list li {
+  padding: 0.1rem 0;
+}
+.simple-link-list a {
+  color: var(--primary);
+  text-decoration: underline;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
 
 .card-section {
-  margin-bottom: 2.5rem;
+  margin-bottom: 3.5rem;
+}
+.card-section:has(.featured-block) {
+  margin-bottom: 3rem;
+}
+
+.card-section .featured-block + .card-grid {
+  margin-top: 1.25rem;
 }
 
 /* Card grid */
@@ -180,11 +234,31 @@ body {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.card-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 @media (max-width: 1024px) {
   .card-grid-2,
   .card-grid-3 {
     grid-template-columns: 1fr;
   }
+
+  .card-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Card with icon on top, no background */
+.card.card-top-icon {
+  flex-direction: column;
+  gap: 0;
+}
+
+.card-top-icon-symbol {
+  font-size: 24px !important;
+  color: var(--primary) !important;
+  margin-bottom: 0.5rem;
 }
 
 /* Card */
@@ -282,10 +356,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
 }
 
 .link-item strong {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-dark);
 }
@@ -313,7 +389,7 @@ body {
 }
 
 .quick-links-container {
-  margin-top: 1.25rem;
+  margin-top: 3.25rem;
   padding: 1.25rem;
   background: #F0F0F0;
   border-radius: 2px;
@@ -342,20 +418,22 @@ body {
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 1.5rem 2rem;
 }
 
 .contact-block {
-  padding: 1rem;
-  background: #fafafa;
-  border-radius: 2px;
-  border: 1px solid var(--border);
+  padding: 1rem 0;
+  background: none;
+  border-radius: 0;
+  border: none;
+  border-top: 1px solid var(--border);
 }
 
 .contact-block strong {
   display: block;
-  font-size: 0.95rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
 }
 
 .contact-block p,
@@ -437,7 +515,7 @@ body {
 .icon-tiles {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -450,30 +528,37 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1.25rem 0.75rem;
+  gap: 0.75rem;
+  padding: 1.5rem 1rem;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 2px;
+  border-radius: 6px;
   text-decoration: none;
   color: var(--text-dark);
-  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  transition: all 0.15s ease;
   text-align: center;
 }
 
 .icon-tile:hover {
   border-color: var(--primary);
-  box-shadow: 0 2px 8px rgba(145, 34, 56, 0.1);
-  background: var(--primary-light);
+  box-shadow: 0 4px 16px rgba(145, 34, 56, 0.12);
+  transform: translateY(-2px);
 }
 
 .icon-tile .material-symbols-sharp {
   font-size: 32px;
-  color: var(--primary);
+  color: #fff;
+  background: var(--primary);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .icon-tile span:last-child {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.3;
 }
@@ -513,8 +598,13 @@ body {
 
 /* --- Compact List Rows --- */
 .compact-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 2rem;
+}
+
+.compact-list--1col {
+  grid-template-columns: 1fr;
 }
 
 .compact-row {
@@ -522,15 +612,13 @@ body {
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem 0;
-  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
 }
 
-.compact-row:first-child {
-  padding-top: 0;
-}
-
-.compact-row:last-child {
-  border-bottom: none;
+@media (max-width: 860px) {
+  .compact-list {
+    grid-template-columns: 1fr;
+  }
 }
 
 .compact-row-body {
@@ -572,6 +660,20 @@ body {
 }
 
 /* --- Tabs --- */
+.tab-container {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  background: #fff;
+  margin-bottom: 2.5rem;
+}
+.tab-container .tab-bar {
+  margin-top: 0;
+}
+.tab-container .tab-panel .card-section {
+  margin-bottom: 0;
+}
+
 .tab-bar {
   display: flex;
   gap: 0;
@@ -775,6 +877,7 @@ body {
   margin-right: 1rem;
 }
 
+
 /* Compact card variant for fitness-style items */
 .compact-card-grid {
   display: grid;
@@ -847,6 +950,10 @@ body {
   transition: box-shadow 0.2s, border-color 0.2s;
 }
 
+a.icon-card {
+  text-decoration: none;
+  color: inherit;
+}
 .icon-card:hover {
   border-color: var(--primary);
   box-shadow: 0 3px 12px rgba(145, 34, 56, 0.1);
@@ -1037,7 +1144,8 @@ body {
 
   /* Card grids — single column */
   .card-grid-2,
-  .card-grid-3 {
+  .card-grid-3,
+  .card-grid-4 {
     grid-template-columns: 1fr;
   }
 
@@ -1048,15 +1156,17 @@ body {
   }
 
   .icon-tile {
-    padding: 1rem 0.5rem;
+    padding: 1.25rem 0.75rem;
   }
 
   .icon-tile .material-symbols-sharp {
     font-size: 28px;
+    width: 48px;
+    height: 48px;
   }
 
   .icon-tile span:last-child {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
   }
 
   /* Chips — wrap tightly */
@@ -1078,6 +1188,10 @@ body {
   .compact-card-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
+  }
+
+  .tab-container {
+    padding: 1rem;
   }
 
   /* Tab bar — scrollable */
@@ -1118,6 +1232,12 @@ body {
   .featured-block {
     flex-direction: column;
     gap: 1rem;
+  }
+  .simple-link-list-2col {
+    columns: 1;
+  }
+  .link-columns-2 {
+    grid-template-columns: 1fr;
   }
 
   /* Alert card */
