@@ -932,6 +932,10 @@ body {
   gap: 1rem;
 }
 
+.card-section .card-grid + .icon-card-grid {
+  margin-top: 1.25rem;
+}
+
 @media (max-width: 768px) {
   .icon-card-grid {
     grid-template-columns: 1fr;
